@@ -28,7 +28,13 @@ More information (and pictures) in the [Notes](#my-setup) section below.
 
 ## Quick start
 
-Run `example.py` which will output something similar to:
+Clone repo and run `example.py`:
+
+``` bash
+git clone git@github.com:SorX14/alphaess_modbus.git
+cd ./alphaess_modbus
+./example.py
+```
 
 ``` bash
 [Sun, 20 Nov 2022 21:36:54] INFO [example.py.main:27] PV: 0W GRID: 1078W USE: 1078W Battery: 0W
@@ -130,7 +136,7 @@ print(item)
 
 ## Writing values
 
-☠️⚠️ ModBus gives full control of the inverter. There are device-level protections in place but be very careful ⚠️☠️
+☠️ ModBus gives full control of the inverter. There are device-level protections in place but be very careful ☠️
 
 This library is intended to read values, but you can get a reference to the  [internal ModBus library](https://pypi.org/project/AsyncioMinimalModbus/) with `reader.instrument`:
 
@@ -145,13 +151,19 @@ Use the [AlphaESS manual](https://www.alpha-ess.de/images/downloads/handbuecher/
 
 ## Notes
 
+### Definitions
+
+While [my parsing script](https://github.com/SorX14/alphaess_pdf_parser) did its best, there are likely to be many faults and missing entries. I only need a few basic registers so haven't tested them all.
+
+PR's are welcome 🙂
+
 ### Speed
 
 The ModBus interface only runs at 9600 so you can query about 6 parameters a second (depending on register length). A standard request for total usage needs three requests, so you can get ~2 req/s.
 
 ### Error handling
 
-I've had the connection break a few times while testing, make sure you handle reconnecting correctly.
+I've had the connection break a few times while testing, make sure you handle reconnecting correctly. `example.py` will output the full exception should one happen.
 
 ### My setup
 
