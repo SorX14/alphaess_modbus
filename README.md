@@ -105,9 +105,8 @@ Prints the current grid usage as an integer.
 Get units (if any) for a register name.
 
 ``` python
-reg = "total_active_power_grid_meter"
-grid_untis = await reader.get_units(reg)
-print(f"{grid_units}")
+grid_units = await reader.get_units("total_active_power_grid_meter")
+print(grid_units)
 
 # W
 ```
