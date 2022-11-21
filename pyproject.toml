@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "alphaess-modbus"
+version = "0.1.0"
+description = "Async Python 3 library to read ModBus from an AlphaESS inverter"
+authors = ["steve.parker"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "alphaess_modbus"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+asyncio = "^3.4.3"
+logging = "^0.4.9.6"
+AsyncioMinimalModbus = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
