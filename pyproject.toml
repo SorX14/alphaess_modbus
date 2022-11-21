@@ -5,12 +5,14 @@ description = "Async Python 3 library to read ModBus from an AlphaESS inverter"
 authors = ["steve.parker"]
 license = "MIT"
 readme = "README.md"
+
+repository = "https://github.com/SorX14/alphaess_modbus"
 packages = [{include = "alphaess_modbus"}]
+keywords = ["python", "alphaess", "modbus", "rs485", "solar", "pv"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 AsyncioMinimalModbus = "^1.0.0"
-
 
 [build-system]
 requires = ["poetry-core"]

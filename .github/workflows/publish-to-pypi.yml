@@ -1,0 +1,19 @@
+name: Publish to Production
+on:
+  release:
+    types: [published]
+jobs:
+  build-n-publish:
+    name: Publish to PyPI. Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Poetry Setup
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.1.13
+      - name: Build and publish to pypi
+        run: |
+          poetry build
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry publish
