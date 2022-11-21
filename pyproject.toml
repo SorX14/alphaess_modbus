@@ -9,8 +9,6 @@ packages = [{include = "alphaess_modbus"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-asyncio = "^3.4.3"
-logging = "^0.4.9.6"
 AsyncioMinimalModbus = "^1.0.0"
 
 
