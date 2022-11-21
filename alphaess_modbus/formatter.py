@@ -1,12 +1,26 @@
 class Formatter:
     def system_mode(self, val) -> str:
-            if val == 1:
-                return "AC Mode"
-            if val == 2:
-                return "DC Mode"
-            if val == 3:
-                return "Hybrid Mode"
-            return "🤷"
+        if val == 1:
+            return "AC Mode"
+        if val == 2:
+            return "DC Mode"
+        if val == 3:
+            return "Hybrid Mode"
+        return "🤷"
+
+    def battery_type(self, val) -> str:
+        if val == 2:
+            return "M4860"
+        if val == 3:
+            return "M48100"
+        if val == 13:
+            return "48112-P"
+        if val == 16:
+            return "Smile5-BAT"
+        if val == 24:
+            return "M4856-P"
+        if val == 33:
+            return "Smile-BAT-5.8P"
         
     def local_ip(self, val) -> str:
         return self.ip_formatter(self, val)

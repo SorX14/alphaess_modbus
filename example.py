@@ -40,6 +40,9 @@ async def main():
         system_mode = await reader.get_formatted_value("system_mode")
         logger.info(f"System mode: {system_mode!r}")
 
+        capacity = await reader.get_formatted_value("PV Capacity Storage")
+        logger.info(f"System capacity: {capacity}")
+
         local_ip = await reader.get_formatted_value("local_ip")
         logger.info(f"Local IP: {local_ip!r}")
         subnet_mask = await reader.get_formatted_value("subnet_mask")

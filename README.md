@@ -54,7 +54,7 @@ For example, to get the capacity of your installed system, find the item in the 
 
 ![PDF entry](./docs/pdf_register.png)
 
-Copy the name - `PV Capacity Storage` - and request with `.get_value("PV Capacity Storage")`
+Copy the name - `PV Capacity of Grid Inverter` - and request with `.get_value("PV Capacity of Grid Inverter")`
 
 ### Definitions
 
@@ -160,7 +160,7 @@ print(item)
 
 ## Formatters
 
-Some registers are special not just simple numbers - they could contain ASCII, hex-encoded numbers or another format.
+Some registers are special and not just simple numbers - they could contain ASCII, hex-encoded numbers or another format.
 
 For example, `0x0809` `Local IP` returns 4 bytes of the current IP, e.g. `0xC0，0xA8，0x01，0x01` (`192.168.1.1`).
 
