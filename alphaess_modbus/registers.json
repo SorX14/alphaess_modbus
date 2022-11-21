@@ -27,7 +27,7 @@
         "units": "KWh"
     },
     {
-        "name": "total_energy_consume_from",
+        "name": "total_energy_consume_from_grid_grid",
         "address": 18,
         "hex": "0x0012",
         "type": "long",
@@ -41,7 +41,7 @@
         "hex": "0x0014",
         "type": "register",
         "signed": false,
-        "decimals": 0,
+        "decimals": 1,
         "units": "V"
     },
     {
@@ -50,7 +50,7 @@
         "hex": "0x0015",
         "type": "register",
         "signed": false,
-        "decimals": 0,
+        "decimals": 1,
         "units": "V"
     },
     {
@@ -59,7 +59,7 @@
         "hex": "0x0016",
         "type": "register",
         "signed": false,
-        "decimals": 0,
+        "decimals": 1,
         "units": "V"
     },
     {
@@ -95,7 +95,7 @@
         "hex": "0x001A",
         "type": "register",
         "signed": false,
-        "decimals": 2,
+        "decimals": 1,
         "units": "HZ"
     },
     {
@@ -270,7 +270,7 @@
         "units": "KWh"
     },
     {
-        "name": "total_energy_consumed_from",
+        "name": "total_energy_consumed_from_grid_pv",
         "address": 146,
         "hex": "0x0092",
         "type": "long",
@@ -861,7 +861,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":Open,:Close"
+        "units": ":Open,:Close",
+        "formatter": "battery_mos_control"
     },
     {
         "name": "battery_soc_calibration",
@@ -870,7 +871,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":Disable,:Enable"
+        "units": ":Disable,:Enable",
+        "formatter": "battery_soc_calibration"
     },
     {
         "name": "battery_single_cut_error_code",
@@ -999,7 +1001,7 @@
         "units": "V"
     },
     {
-        "name": "inverter__voltage_l2",
+        "name": "inverter_voltage_l2",
         "address": 1025,
         "hex": "0x0401",
         "type": "register",
@@ -1404,7 +1406,7 @@
         "units": "Hinweis"
     },
     {
-        "name": "system_time_:__year__month",
+        "name": "system_time_year_month",
         "address": 1856,
         "hex": "0x0740",
         "type": "register",
@@ -1413,7 +1415,7 @@
         "units": "Dataformathex;"
     },
     {
-        "name": "system_time_:__day__hour",
+        "name": "system_time_day_hour",
         "address": 1857,
         "hex": "0x0741",
         "type": "register",
@@ -1422,7 +1424,7 @@
         "units": "Dataformathex;"
     },
     {
-        "name": "system_time_:__minute__second",
+        "name": "system_time_minute_second",
         "address": 1858,
         "hex": "0x0742",
         "type": "register",
@@ -1437,7 +1439,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte1_2"
     },
     {
         "name": "ems_sn_byte3_4",
@@ -1446,7 +1449,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte3_4"
     },
     {
         "name": "ems_sn_byte5_6",
@@ -1455,7 +1459,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte5_6"
     },
     {
         "name": "ems_sn_byte7_8",
@@ -1464,7 +1469,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte7_8"
     },
     {
         "name": "ems_sn_byte9_10",
@@ -1473,7 +1479,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte9_10"
     },
     {
         "name": "ems_sn_byte11_12",
@@ -1482,7 +1489,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte11_12"
     },
     {
         "name": "ems_sn_byte13_14",
@@ -1491,7 +1499,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte13_14"
     },
     {
         "name": "ems_sn_byte15_16",
@@ -1500,7 +1509,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "EMSSN:ASCII"
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte15_16"
     },
     {
         "name": "ems_version_high",
@@ -1563,7 +1573,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":ACMode"
+        "units": ":ACMode",
+        "formatter": "system_mode"
     },
     {
         "name": "meter_ct_select",
@@ -1572,7 +1583,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":Grid&PVuseCT;"
+        "units": ":Grid&PVuseCT;",
+        "formatter": "meter_ct_select"
     },
     {
         "name": "battery_ready",
@@ -1581,7 +1593,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":OFF"
+        "units": ":OFF",
+        "formatter": "battery_ready"
     },
     {
         "name": "ip_method",
@@ -1590,13 +1603,14 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":DHCP:STATIC"
+        "units": ":DHCP:STATIC",
+        "formatter": "ip_method"
     },
     {
         "name": "local_ip",
         "address": 2057,
         "hex": "0x0809",
-        "type": "register",
+        "type": "long",
         "signed": false,
         "decimals": 0,
         "units": "xC\uff0cxA\uff0c"
@@ -1605,7 +1619,7 @@
         "name": "subnet_mask",
         "address": 2059,
         "hex": "0x080B",
-        "type": "register",
+        "type": "long",
         "signed": false,
         "decimals": 0,
         "units": "xFF\uff0cxFF\uff0c"
@@ -1614,7 +1628,7 @@
         "name": "gateway",
         "address": 2061,
         "hex": "0x080D",
-        "type": "register",
+        "type": "long",
         "signed": false,
         "decimals": 0,
         "units": "xC\uff0cxA\uff0c"
@@ -1644,7 +1658,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":DisableTimeperiodcontrol"
+        "units": ":DisableTimeperiodcontrol",
+        "formatter": "time_period_control_flag"
     },
     {
         "name": "ups_reserve_soc",
@@ -1743,7 +1758,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":start;:stop"
+        "units": ":start;:stop",
+        "formatter": "dispatch_start"
     },
     {
         "name": "dispatch_active_power",
@@ -1752,7 +1768,8 @@
         "type": "register",
         "signed": true,
         "decimals": 0,
-        "units": "W"
+        "units": "W",
+        "formatter": "dispatch_active_power"
     },
     {
         "name": "dispatch_reactive_power",
@@ -1761,7 +1778,8 @@
         "type": "register",
         "signed": true,
         "decimals": 0,
-        "units": "Var"
+        "units": "Var",
+        "formatter": "dispatch_reactive_power"
     },
     {
         "name": "dispatch_mode",
@@ -1779,7 +1797,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": "%"
+        "units": "%",
+        "formatter": "dispatch_soc"
     },
     {
         "name": "dispatch_time",
@@ -2103,7 +2122,157 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":None"
+        "units": ":None",
+        "formatter": "reset_mode"
+    },
+    {
+        "name": "ems_sn_byte1_2",
+        "address": 4353,
+        "hex": "0x1101",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte1_2"
+    },
+    {
+        "name": "ems_sn_byte3_4",
+        "address": 4354,
+        "hex": "0x1102",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte3_4"
+    },
+    {
+        "name": "ems_sn_byte5_6",
+        "address": 4355,
+        "hex": "0x1103",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte5_6"
+    },
+    {
+        "name": "ems_sn_byte7_8",
+        "address": 4356,
+        "hex": "0x1104",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte7_8"
+    },
+    {
+        "name": "ems_sn_byte9_10",
+        "address": 4357,
+        "hex": "0x1105",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte9_10"
+    },
+    {
+        "name": "ems_sn_byte11_12",
+        "address": 4358,
+        "hex": "0x1106",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte11_12"
+    },
+    {
+        "name": "ems_sn_byte13_14",
+        "address": 4359,
+        "hex": "0x1107",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte13_14"
+    },
+    {
+        "name": "ems_sn_byte15_16",
+        "address": 4360,
+        "hex": "0x1108",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSSN:ASCII",
+        "formatter": "ems_sn_byte15_16"
+    },
+    {
+        "name": "ems_mac_byte1_2",
+        "address": 4361,
+        "hex": "0x1109",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSMAC:HEX",
+        "formatter": "ems_mac_byte1_2"
+    },
+    {
+        "name": "ems_mac_byte3_4",
+        "address": 4362,
+        "hex": "0x110A",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSMAC:HEX",
+        "formatter": "ems_mac_byte3_4"
+    },
+    {
+        "name": "ems_mac_byte5_6",
+        "address": 4363,
+        "hex": "0x110B",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": "EMSMAC:HEX",
+        "formatter": "ems_mac_byte5_6"
+    },
+    {
+        "name": "pointing_to_the_server",
+        "address": 4364,
+        "hex": "0x110C",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": ":FormalServer",
+        "formatter": "pointing_to_the_server"
+    },
+    {
+        "name": "network_type",
+        "address": 4365,
+        "hex": "0x110D",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": ""
+    },
+    {
+        "name": "system_laguage",
+        "address": 4366,
+        "hex": "0x110E",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": ":English:German",
+        "formatter": "system_laguage"
+    },
+    {
+        "name": "inverter_model",
+        "address": 4367,
+        "hex": "0x110F",
+        "type": "register",
+        "signed": false,
+        "decimals": 0,
+        "units": ":INVERTER_NULL,",
+        "formatter": "inverter_model"
     },
     {
         "name": "pv_ct_power",
@@ -2913,7 +3082,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":TOPBMU-M-S/:"
+        "units": ":TOPBMU-M-S/:",
+        "formatter": "topbmu_version"
     },
     {
         "name": "topbmu_bmu_version",
@@ -2922,7 +3092,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "topbmu_bmu_version"
     },
     {
         "name": "topbmu_iso_version",
@@ -2931,7 +3102,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":LMU-M-S/"
+        "units": ":LMU-M-S/",
+        "formatter": "topbmu_iso_version"
     },
     {
         "name": "topbmu_lmu_version",
@@ -2940,7 +3112,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":LMU-M-S/"
+        "units": ":LMU-M-S/",
+        "formatter": "topbmu_lmu_version"
     },
     {
         "name": "topbmu_reset_log",
@@ -2988,7 +3161,7 @@
         "units": ""
     },
     {
-        "name": "toperror_discharge__over__current_cluster_high",
+        "name": "toperror_discharge_over_current_cluster_high",
         "address": 41220,
         "hex": "0xA104",
         "type": "long",
@@ -2997,7 +3170,7 @@
         "units": ""
     },
     {
-        "name": "toperror_discharge__over__current_cluster_low",
+        "name": "toperror_discharge_over_current_cluster_low",
         "address": 41222,
         "hex": "0xA106",
         "type": "long",
@@ -3024,7 +3197,7 @@
         "units": ""
     },
     {
-        "name": "toperror_cell__over__temperature_cluster_high",
+        "name": "toperror_cell_over_temperature_cluster_high",
         "address": 41228,
         "hex": "0xA10C",
         "type": "long",
@@ -3033,7 +3206,7 @@
         "units": ""
     },
     {
-        "name": "toperror_cell__over__temperature_cluster_low",
+        "name": "toperror_cell_over_temperature_cluster_low",
         "address": 41230,
         "hex": "0xA10E",
         "type": "long",
@@ -3132,7 +3305,7 @@
         "units": ""
     },
     {
-        "name": "toperror_cell__voltage__difference_cluster_high",
+        "name": "toperror_cell_voltage_difference_cluster_high",
         "address": 41252,
         "hex": "0xA124",
         "type": "long",
@@ -3141,7 +3314,7 @@
         "units": ""
     },
     {
-        "name": "toperror_cell__voltage__difference_cluster_low",
+        "name": "toperror_cell_voltage_difference_cluster_low",
         "address": 41254,
         "hex": "0xA126",
         "type": "long",
@@ -3276,7 +3449,7 @@
         "units": ""
     },
     {
-        "name": "toperror_cluster__excision__cluster_high",
+        "name": "toperror_cluster_excision_cluster_high",
         "address": 41284,
         "hex": "0xA144",
         "type": "long",
@@ -3321,7 +3494,7 @@
         "units": ""
     },
     {
-        "name": "toperror_bmu__warn__and",
+        "name": "toperror_bmu_warn_and",
         "address": 41328,
         "hex": "0xA170",
         "type": "register",
@@ -3543,7 +3716,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu01_version"
     },
     {
         "name": "bmu01_min_cell_voltage",
@@ -3831,7 +4005,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu02_version"
     },
     {
         "name": "bmu02_min_cell_voltage",
@@ -4119,7 +4294,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu03_version"
     },
     {
         "name": "bmu03_min_cell_voltage",
@@ -4407,7 +4583,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu04_version"
     },
     {
         "name": "bmu04_min_cell_voltage",
@@ -4695,7 +4872,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu05_version"
     },
     {
         "name": "bmu05_min_cell_voltage",
@@ -4983,7 +5161,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu06_version"
     },
     {
         "name": "bmu06_min_cell_voltage",
@@ -5271,7 +5450,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu07_version"
     },
     {
         "name": "bmu07_min_cell_voltage",
@@ -5559,7 +5739,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu08_version"
     },
     {
         "name": "bmu08_min_cell_voltage",
@@ -5847,7 +6028,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu09_version"
     },
     {
         "name": "bmu09_min_cell_voltage",
@@ -6135,7 +6317,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu10_version"
     },
     {
         "name": "bmu10_min_cell_voltage",
@@ -6423,7 +6606,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu11_version"
     },
     {
         "name": "bmu11_min_cell_voltage",
@@ -6711,7 +6895,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu12_version"
     },
     {
         "name": "bmu12_min_cell_voltage",
@@ -6999,7 +7184,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu13_version"
     },
     {
         "name": "bmu13_min_cell_voltage",
@@ -7287,7 +7473,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu14_version"
     },
     {
         "name": "bmu14_min_cell_voltage",
@@ -7575,7 +7762,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu15_version"
     },
     {
         "name": "bmu15_min_cell_voltage",
@@ -7863,7 +8051,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu16_version"
     },
     {
         "name": "bmu16_min_cell_voltage",
@@ -8151,7 +8340,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu17_version"
     },
     {
         "name": "bmu17_min_cell_voltage",
@@ -8439,7 +8629,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu18_version"
     },
     {
         "name": "bmu18_min_cell_voltage",
@@ -8727,7 +8918,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu19_version"
     },
     {
         "name": "bmu19_min_cell_voltage",
@@ -9015,7 +9207,8 @@
         "type": "register",
         "signed": false,
         "decimals": 0,
-        "units": ":BMU-HV/"
+        "units": ":BMU-HV/",
+        "formatter": "bmu20_version"
     },
     {
         "name": "bmu20_min_cell_voltage",

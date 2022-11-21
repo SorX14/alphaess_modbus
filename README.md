@@ -1,12 +1,14 @@
 # AlphaESS ModBus reader
 
-Async Python library to read ModBus from an AlphaESS inverter.
+Async Python 3 library to read ModBus from an AlphaESS inverter.
+
+Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus).
 
 Compatible with:
 
 | **Device**  | **Baud** | **Tested** |
 |-------------|----------|------------|
-| SMILE5      | 9600     | ✅          |
+| SMILE5      | 9600     |      ✅     |
 | SMILE-B3    | 9600     |            |
 | SMILE-T10   | 9600     |            |
 | Storion T30 | 19200    |            |
@@ -44,13 +46,20 @@ Done! 🎉
 
 ## Architecture
 
-Uses a JSON definition file containing all the ModBus registers and how to format them.
-
 This library concentrates on reading data, but [writing](#writing-values) is possible.
 
-For example, this definition entry:
+Uses a JSON definition file containing all the ModBus registers and how to parse them - lookup the register you want from the [PDF](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS-Handbuch_SMILET30_ModBus_RTU_V123-DE.pdf) and request it using the reader functions below.
+
+For example, to get the capacity of your installed system, find the item in the PDF:
+
+![PDF entry](./docs/pdf_register.png)
+
+Copy the name - `PV Capacity Storage` - and request with `.get_value("PV Capacity Storage")`
+
+### Definitions
 
 ``` json
+  ...
   {
     "name": "pv2_current",
     "address": 1058,
@@ -59,12 +68,19 @@ For example, this definition entry:
     "signed": false,
     "decimals": 1,
     "units": "A"
-  }
+  },
+  ...
+```
+
+called with:
+
+``` python
+await reader.get_value("PV2 current") # or await reader.get_value("pv2_current")
 ```
 
 will read register `0x0422`, process the result as unsigned, divide it by 10, and optionally add `A` as the units.
 
-The JSON file was created with [alphaess_pdf_parser](https://github.com/SorX14/alphaess_pdf_parser) reading from the [German AlphaESS register manual](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS-Handbuch_SMILET30_ModBus_RTU_V123-DE.pdf).
+The default JSON file was created with [alphaess_pdf_parser](https://github.com/SorX14/alphaess_pdf_parser). You can override the default JSON file with `Reader(json_file=location)`
 
 ## Reading values
 
@@ -74,10 +90,10 @@ Create a new reader
 
 ``` python
 import asyncio
-from alphamodbus.alphamodbus import Reader
+from alphaess_modbus import Reader
 
 async def main():
-    reader: Reader = Reader(json_file="alphaess_registers.json", baud=9600)
+    reader: Reader = Reader()
 
     definition = await reader.get_definition("pv2_voltage")
     print(definition)
@@ -85,11 +101,18 @@ async def main():
 asyncio.run(main())
 ```
 
-Set the location for the JSON definitions and your baud rate.
+Optionally change the defaults with:
 
-### `get_value(name)`
+- `decimalAddress=85`
+- `serial='/dev/serial0'`
+- `debug=False`
+- `baud=9600`
+- `json_file=None`
+- `formatter=None`
 
-Requests a value from the inverter. Numeric result is returned.
+### `get_value(name) -> int`
+
+Requests a value from the inverter.
 
 ``` python
 grid = await reader.get_value("total_active_power_grid_meter")
@@ -100,7 +123,7 @@ print(grid)
 
 Prints the current grid usage as an integer.
 
-### `get_units(name)`
+### `get_units(name) -> str`
 
 Get units (if any) for a register name.
 
@@ -111,9 +134,9 @@ print(grid_units)
 # W
 ```
 
-### `get_formatted_value(name)`
+### `get_formatted_value(name, use_formatter=True)`
 
-Same as `get_value()` but returns a string with units.
+Same as `get_value()` but returns a string with units. If a [formatter](#formatters) is defined for the register, a different return type is possible.
 
 ``` python
 grid = await reader.get_formatted_value("total_active_power_grid_meter")
@@ -122,7 +145,9 @@ print(grid)
 # 1234W
 ```
 
-### `get_definition(name)`
+Set `use_formatter` to `False` to prevent a formatter from being invoked.
+
+### `get_definition(name) -> dict`
 
 Get the JSON entry for an item. Useful if you're trying to [write](#writing-values) a register.
 
@@ -132,6 +157,40 @@ print(item)
 
 # {'name': 'inverter_power_total', 'address': 1036, 'hex': '0x040C', 'type': 'long', 'signed': True, 'decimals': 0, 'units': 'W'}
 ```
+
+## Formatters
+
+Some registers are special not just simple numbers - they could contain ASCII, hex-encoded numbers or another format.
+
+For example, `0x0809` `Local IP` returns 4 bytes of the current IP, e.g. `0xC0，0xA8，0x01，0x01` (`192.168.1.1`).
+
+To help, there is a built-in formatter which will be invoked when calling `.get_formatted_value()` e.g:
+
+``` python
+ip = await reader.get_formatted_value("Local IP")
+print(ip)
+
+# 192.168.0.1
+```
+
+Not all registers have a formatter, and you might have a preference on how the value is returned (e.g. time-format). To help with this, you can pass a `formatter` to `Reader()` and override or add to the default:
+
+``` python
+
+class my_custom_formatter:
+  def local_ip(self, val) -> str:
+    bytes = val.to_bytes(4, byteorder='big')
+    return f"IP of device: {int(bytes[0])} - {int(bytes[1])} - {int(bytes[2])} - {int(bytes[3])}"
+
+reader: Reader = Reader(formatter=my_customer_formatter)
+
+local_ip = await reader.get_formatted_value("local_ip")
+print(local_ip)
+
+# IP of device: 192 - 168 - 0 - 0
+```
+
+Each formatting function is based on the conformed name of a register. You can find the conformed name of a register by searching `registers.json` or by using `await reader.get_definition(name)`
 
 ## Writing values
 
@@ -154,11 +213,13 @@ Use the [AlphaESS manual](https://www.alpha-ess.de/images/downloads/handbuecher/
 
 While [my parsing script](https://github.com/SorX14/alphaess_pdf_parser) did its best, there are likely to be many faults and missing entries. I only need a few basic registers so haven't tested them all.
 
+Some registers are longer than the default 4 bytes and won't work- you'll have to use the internal reader instead.
+
 PR's are welcome 🙂
 
-### Speed
+### Registers always returning 0
 
-The ModBus interface only runs at 9600 so you can query about 6 parameters a second (depending on register length). A standard request for total usage needs three requests, so you can get ~2 req/s.
+There are a lot of registers, but they might not all be relevant depending on your system setup. For example, the PV meter section is useless if your AlphaESS is in DC mode. 
 
 ### Error handling
 
