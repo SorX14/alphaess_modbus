@@ -2,7 +2,7 @@
 
 Async Python 3 library to read ModBus from an AlphaESS inverter.
 
-Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus).
+Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus) for ModBus/RS485 communication.
 
 Compatible with:
 
@@ -30,6 +30,18 @@ More information (and pictures) in the [Notes](#my-setup) section below.
 
 ## Quick start
 
+### PIP
+
+Install with:
+
+``` bash
+python3 -m pip install alphaess-modbus
+```
+
+Checkout `example.py` to get started
+
+### Clone
+
 Clone repo and run `example.py`:
 
 ``` bash
@@ -52,7 +64,7 @@ Uses a JSON definition file containing all the ModBus registers and how to parse
 
 For example, to get the capacity of your installed system, find the item in the PDF:
 
-![PDF entry](./docs/pdf_register.png)
+![PDF entry](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/pdf_register.png)
 
 Copy the name - `PV Capacity of Grid Inverter` - and request with `.get_value("PV Capacity of Grid Inverter")`
 
@@ -229,19 +241,19 @@ I've had the connection break a few times while testing, make sure you handle re
 
 I used a [m5stamp RS485 module](https://shop.m5stack.com/products/m5stamp-rs485-module) with a digital isolator and DC/DC isolator.
 
-![RS485 adapter](./docs/rs485_adapter.png)
+![RS485 adapter](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/rs485_adapter.png)
 
 Installed in an enclosure with a PoE adapter to power the Pi and provide connectivity.
 
-![Enclosure](./docs/enclosure.png)
+![Enclosure](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/enclosure.png)
 
 Enabled ModBus interface on the inverter. You'll need the service password, mine was set to the default of `1111`.
 
-![Modbus enable](./docs/modbus_enable.png)
+![Modbus enable](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/modbus_enable.png)
 
 Then connected to the CAN port.
 
-![Installed](./docs/installed.png)
+![Installed](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/installed.png)
 
 # Credit and thanks
 
@@ -254,3 +266,6 @@ AlphaESS creating an official API to retrieve data - https://github.com/alphaess
 
 Another great resource is https://github.com/dxoverdy/Alpha2MQTT which uses a ESP8266 instead
 of a Raspberry PI to communicate with the inverter - again - highly recommended.
+
+https://github.com/scanapi/scanapi for 'helping' with github actions (I used their workflow actions as templates for this project).
+
