@@ -1,8 +1,10 @@
 # AlphaESS ModBus reader
 
-Async Python 3 library to read ModBus from an AlphaESS inverter.
+Async Python 3 library to read ModBus from an AlphaESS inverter. Tested and assumes using a Raspberry Pi as the host.
 
 Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus) for ModBus/RS485 communication.
+
+See [alphaess_collector](https://github.com/SorX14/alphaess_collector) which uses this library to store values in MySQL.
 
 Compatible with:
 
@@ -60,18 +62,19 @@ Done! 🎉
 
 This library concentrates on reading data, but [writing](#writing-values) is possible.
 
-Uses a JSON definition file containing all the ModBus registers and how to parse them - lookup the register you want from the [PDF](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS-Handbuch_SMILET30_ModBus_RTU_V123-DE.pdf) and request it using the reader functions below.
+Uses a JSON definition file containing all the ModBus registers and how to parse them - lookup the register you want from the [PDF](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS_Register_Parameter_List.pdf) and request it using the reader functions below.
 
 For example, to get the capacity of your installed system, find the item in the PDF:
 
 ![PDF entry](https://raw.githubusercontent.com/SorX14/alphaess_modbus/main/docs/pdf_register.png)
 
-Copy the name - `PV Capacity of Grid Inverter` - and request with `.get_value("PV Capacity of Grid Inverter")`
+Copy the name - `PV Capacity of Grid Inverter` - and request with `await reader.get_value("PV Capacity of Grid Inverter")`
 
 ### Definitions
 
+An excerpt from `registers.json`:
+
 ``` json
-  ...
   {
     "name": "pv2_current",
     "address": 1058,
@@ -81,16 +84,15 @@ Copy the name - `PV Capacity of Grid Inverter` - and request with `.get_value("P
     "decimals": 1,
     "units": "A"
   },
-  ...
 ```
 
-called with:
+which would be used when called with:
 
 ``` python
 await reader.get_value("PV2 current") # or await reader.get_value("pv2_current")
 ```
 
-will read register `0x0422`, process the result as unsigned, divide it by 10, and optionally add `A` as the units.
+It will read register `0x0422`, process the result as unsigned, divide it by 10, and optionally add `A` as the units.
 
 The default JSON file was created with [alphaess_pdf_parser](https://github.com/SorX14/alphaess_pdf_parser). You can override the default JSON file with `Reader(json_file=location)`
 
@@ -211,13 +213,17 @@ Each formatting function is based on the conformed name of a register. You can f
 This library is intended to read values, but you can get a reference to the  [internal ModBus library](https://pypi.org/project/AsyncioMinimalModbus/) with `reader.instrument`:
 
 ``` python
+# Using internal reference to read a value
 read = await reader.instrument.read_long(int(0x0021), 3, False)
 print(read)
+
+# Untested, but should set system language
+await reader.instrument.write_register(int(0x071D), 1, 0)
 ```
 
 Read the library docs for what to do next: https://minimalmodbus.readthedocs.io/en/stable/
 
-Use the [AlphaESS manual](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS-Handbuch_SMILET30_ModBus_RTU_V123-DE.pdf) for how each register works.
+Use the [AlphaESS manual](https://www.alpha-ess.de/images/downloads/handbuecher/AlphaESS_Register_Parameter_List.pdf) for how each register works.
 
 ## Notes
 
