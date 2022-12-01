@@ -1,12 +1,13 @@
 # AlphaESS ModBus reader
 
-Async Python 3 library to read ModBus from an AlphaESS inverter. Tested and assumes using a Raspberry Pi as the host.
+Async Python 3 library to read ModBus from an AlphaESS inverter. Tested and assumes using a Raspberry Pi as the host for RTU.
 
-Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus) for ModBus/RS485 communication.
+Uses [asynciominimalmodbus](https://github.com/guyradford/asynciominimalmodbus) for ModBus/RS485 RTU communication.
+Uses [pymodbys](https://github.com/riptideio/pymodbus) for Modbus TCP communication.
 
 See [alphaess_collector](https://github.com/SorX14/alphaess_collector) which uses this library to store values in MySQL.
 
-Compatible with:
+Compatible with RTU:
 
 | **Device**  | **Baud** | **Tested** |
 |-------------|----------|------------|
@@ -15,11 +16,11 @@ Compatible with:
 | SMILE-T10   | 9600     |            |
 | Storion T30 | 19200    |            |
 
-## Hardware
+## Hardware (RTU)
 
 ⚠️⚠️ This worked for me, so do at your own risk!! ⚠️⚠️
 
-More information (and pictures) in the [Notes](#my-setup) section below.
+More information (and pictures) in the [Notes](#my-rtu-setup) section below.
 
 - Use the inverter menu to enable modbus in slave mode.
 - Snip one end of an ethernet cable off and connect (may vary):
@@ -40,7 +41,7 @@ Install with:
 python3 -m pip install alphaess-modbus
 ```
 
-Checkout `example.py` to get started
+Checkout `example.py` or `example-tcp.py` to get started
 
 ### Clone
 
@@ -100,7 +101,7 @@ The default JSON file was created with [alphaess_pdf_parser](https://github.com/
 
 ### `Reader()`
 
-Create a new reader
+Create a new RTU reader
 
 ``` python
 import asyncio
@@ -121,6 +122,31 @@ Optionally change the defaults with:
 - `serial='/dev/serial0'`
 - `debug=False`
 - `baud=9600`
+- `json_file=None`
+- `formatter=None`
+
+### `ReaderTCP()`
+
+Create a new TCP reader
+
+``` python
+import asyncio
+from alphaess_modbus import ReaderTCP
+
+async def main():
+    reader: ReaderTCP = ReaderTCP(ip="192.168.1.100", port=502)
+
+    definition = await reader.get_definition("pv2_voltage")
+    print(definition)
+
+asyncio.run(main())
+```
+
+Optionally change the defaults with:
+
+- `ip=None`
+- `port=502`
+- `slave_id=int(0x55)`
 - `json_file=None`
 - `formatter=None`
 
@@ -243,7 +269,17 @@ There are a lot of registers, but they might not all be relevant depending on yo
 
 I've had the connection break a few times while testing, make sure you handle reconnecting correctly. `example.py` will output the full exception should one happen.
 
-### My setup
+### My TCP setup
+
+Some of the more recent AlphaESS inverters have this out of the box, but mine didn't. The original RTU setup was to bridge this gap.
+
+Eventually, I purchased a [WaveShare RS485 TO POE Ethernet Converter](https://www.waveshare.com/rs485-to-eth-b.htm) but I'm sure there are alternatives. You want something that converts a RTU device to TCP. 
+
+The WaveShare one is powered by PoE, it was simple to unplug my RTU setup and put this in its place.
+
+Added a small piece of DIN rail next to my inverter and gave the converter a static IP. 
+
+### My RTU setup
 
 I used a [m5stamp RS485 module](https://shop.m5stack.com/products/m5stamp-rs485-module) with a digital isolator and DC/DC isolator.
 
