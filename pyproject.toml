@@ -8,11 +8,12 @@ readme = "README.md"
 
 repository = "https://github.com/SorX14/alphaess_modbus"
 packages = [{include = "alphaess_modbus"}]
-keywords = ["python", "alphaess", "modbus", "rs485", "solar", "pv"]
+keywords = ["python", "alphaess", "modbus", "rs485", "tcp", "solar", "pv"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 AsyncioMinimalModbus = "^1.0.0"
+pymodbus = "^3.0.2"
 
 [build-system]
 requires = ["poetry-core"]
